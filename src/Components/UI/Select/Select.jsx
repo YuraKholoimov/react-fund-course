@@ -1,7 +1,10 @@
 import React from 'react';
 
-const Select = ({ options, defaultValue, sortTasks, value }) => {
-
+const Select = ({ defaultValue, sortTasks, value }) => {
+    const options= [
+        { value: "title", name: "Sort by title" },
+        { value: "body", name: "Sort by text" }
+      ]
     return(
         <select value={value} onChange={ event => sortTasks(event.target.value)}  >
 

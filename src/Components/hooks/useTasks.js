@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const useSortedasks = (tasksArr, sort) => {
+const useSortedasks = (tasksArr, sort) => {
 
     const sortedTasksArr = React.useMemo(() => {
         if (sort) {
