@@ -7,7 +7,12 @@ import style from "../css/buttons.module.css";
 const Task = ({ task, number, removeTask }) => {
   return (
     <div className={style.container}>
-      <h3>{number}{task.title}</h3>
+      <h3>
+        <span className={style.pageNumber}>
+          {number}
+        </span>
+        {task.title}
+      </h3>
       <div>
         {task.body}
       </div>

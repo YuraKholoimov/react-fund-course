@@ -13,7 +13,7 @@ const TasksList = ({ tasks, removeTask }) => {
     <div>
       {tasks.map((task, index) => (
         <Task 
-            number={index + 1} 
+            number={task.id} 
             task={task} 
             key={index} 
             removeTask={removeTask}/>

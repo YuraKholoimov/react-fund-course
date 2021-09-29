@@ -8,6 +8,7 @@ import TasksList from "./Components/TasksList";
 import Button from "./Components/UI/Buttons/Buttons";
 import Modal from "./Components/UI/Modal/Modal";
 import { getPageCount } from "./Components/utils/page";
+import style from "./css/pagination.module.css"
 
 import "./css/App.css";
 
@@ -39,9 +40,20 @@ function App() {
     setTotalPage(getPageCount(totalPageCount, limit))
   })
 
+  const pages = []
+
+  for (let i = 0; i < totalPage; i++) {
+    pages.push(i + 1)
+  }
+
+  function selectPage() {
+
+  }
+
   React.useEffect(()=> {
     fetchTasks()
-  }, [])
+    console.log(page);
+  }, [page])
 
   return (
       <div className="App">
@@ -58,7 +70,16 @@ function App() {
             : <TasksList 
                   tasks={sortBySearchAndSeletTasks} 
                   removeTask={removeTask} />
-          }      
+          }  
+          <div className={style.pagination}>{
+              pages.map(p => 
+                <span key={p}  
+                  className={p === page ? `${style.paginationCurrent} ${style.page}` : style.page} 
+                  onClick={()=> setPage(p)}>
+                  {p}
+                </span>
+              )
+          }</div>    
       </div>
   );
 }

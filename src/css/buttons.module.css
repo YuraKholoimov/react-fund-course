@@ -3,6 +3,10 @@
     flex-direction: column;
     /* justify-content:end; */
     border:1px solid green;
+
+}
+.pageNumber {
+    padding: 0px 10px;
 }
 
 
