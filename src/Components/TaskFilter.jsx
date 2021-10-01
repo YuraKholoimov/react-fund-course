@@ -14,9 +14,11 @@ const TasksFelter = ({setFilter, filter}) => {
             </div>
             <div style={{marginBottom: '30px' }}>
                 <Select 
+                    options={[{ value: "title", name: "Sort by title" },
+                            { value: "body", name: "Sort by text" }]}
                     defaultValue='Sort by' 
                     value={filter.sort} 
-                    sortTasks={(selectedSort => setFilter({...filter, sort: selectedSort}))}
+                    onChange={(selectedSort => setFilter({...filter, sort: selectedSort}))}
                 />  
             </div>
         </div>

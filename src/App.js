@@ -31,7 +31,6 @@ function App() {
             <AppRouter />
           </BrowserRouter>
         </AuthContext.Provider>
-       
       </div>
   );
 }
