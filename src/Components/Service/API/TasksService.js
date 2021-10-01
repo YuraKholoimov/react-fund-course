@@ -12,4 +12,14 @@ export default class TasksService {
         })
         return responce
     }
+
+    static async geetById(id) {
+        const responce = await axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
+        return responce
+    }
+
+    static async geetCommentsById(id) {
+        const responce = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+        return responce
+    }
 }

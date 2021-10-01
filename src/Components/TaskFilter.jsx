@@ -1,6 +1,6 @@
 import React from 'react'
-import Input from './UI/Inputs/Input'
-import Select from './UI/Select/Select'
+import Input from './UI/Input'
+import Select from './UI/Select'
 
 const TasksFelter = ({setFilter, filter}) => {
     return(

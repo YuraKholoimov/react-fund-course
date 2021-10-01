@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from './UI/Buttons/Buttons';
-import Input from './UI/Inputs/Input';
+import Button from './UI/Buttons';
+import Input from './UI/Input';
 import style from '../css/buttons.module.css'
 
 const TasksForm = ({createTask}) => {

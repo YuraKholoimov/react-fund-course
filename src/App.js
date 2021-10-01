@@ -1,85 +1,37 @@
-import React from "react";
-import TasksForm from "./Components/Form";
-import { useFetching } from "./Components/hooks/useFetching";
-import { useTasks } from "./Components/hooks/useTasks";
-import TasksService from "./Components/Service/API/TasksService";
-import TasksFelter from "./Components/TaskFilter";
-import TasksList from "./Components/TasksList";
-import Button from "./Components/UI/Buttons/Buttons";
-import Modal from "./Components/UI/Modal/Modal";
-import { getPageCount } from "./Components/utils/page";
-import style from "./css/pagination.module.css"
+import React, { useEffect } from "react";
 
 import "./css/App.css";
 
+import { BrowserRouter } from "react-router-dom";
+import Navbar from "./Components/UI/Navbar";
+
+import AppRouter from "./Components/UI/AppRouter";
+import { AuthContext } from "./Components/Context";
+
 function App() {
+  const [isAuth, setIsAuth] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(true)
 
-  const [tasksArr, setTasksArr] = React.useState([
-    { id: "1", title: " Изучение React JS", body: " Повторение пройденного" },
-    { id: "2", title: " Изучение React JS", body: " Практика" },
-    { id: "3", title: " Изучение React JS", body: " Новый материал" },
-    { id: "4", title: " Изучение React JS", body: " Практика" },
-    { id: "5", title: " Изучение React JS", body: " Подвидение итогов дня" }
-  ]);
-  const [filter, setFilter] = React.useState({sort: '', query: ''})
-  const [visible, setVisible] = React.useState(false)
-  const [limit, setLimit] = React.useState(10)
-  const [page, setPage] = React.useState(1)
-  const [totalPage, setTotalPage] = React.useState(0)
+  useEffect(() => {
+    if (localStorage.getItem('auth')) {
+      setIsAuth(true)
+      setIsLoading(false)
+    }
+  }, [])
 
-  function createTask(task) {setTasksArr([...tasksArr, task]); setVisible(false)};
-  function removeTask(task) {setTasksArr(tasksArr.filter(taskOfArr => taskOfArr.id !== task.id))}
-
-  const sortBySearchAndSeletTasks = useTasks(tasksArr, filter.sort, filter.query )
-
-  const [fetchTasks, isTasksLoading, tasksError ] = useFetching( async () => {
-    const responce = await TasksService.tegAll(limit, page)
-    setTasksArr(responce.data)
-  
-    const totalPageCount = responce.headers['x-total-count']
-    setTotalPage(getPageCount(totalPageCount, limit))
-  })
-
-  const pages = []
-
-  for (let i = 0; i < totalPage; i++) {
-    pages.push(i + 1)
-  }
-
-  function selectPage() {
-
-  }
-
-  React.useEffect(()=> {
-    fetchTasks()
-    console.log(page);
-  }, [page])
-
-  return (
-      <div className="App">
-        <Button onClick={fetchTasks}>Fetch axios</Button>
-          <Button style={{marginTop: "20px"}}onClick={() => setVisible(true)}>Add post</Button>
-          <Modal visible={visible} setVisible={setVisible}>
-          <TasksForm createTask={createTask} />
-          </Modal>
-          <hr style={{margin: '10px'}} />
-          <TasksFelter filter={filter} setFilter={setFilter}/>
-          {tasksError && <h1>{tasksError}</h1>}
-          {isTasksLoading
-            ? <h1 style={{marginBottom: '20px' }}>Loading...</h1>
-            : <TasksList 
-                  tasks={sortBySearchAndSeletTasks} 
-                  removeTask={removeTask} />
-          }  
-          <div className={style.pagination}>{
-              pages.map(p => 
-                <span key={p}  
-                  className={p === page ? `${style.paginationCurrent} ${style.page}` : style.page} 
-                  onClick={()=> setPage(p)}>
-                  {p}
-                </span>
-              )
-          }</div>    
+   return (
+      <div className='App'>
+        <AuthContext.Provider value={{
+          isAuth,
+          setIsAuth,
+          isLoading
+        }}>
+          <BrowserRouter>
+            <Navbar />
+            <AppRouter />
+          </BrowserRouter>
+        </AuthContext.Provider>
+       
       </div>
   );
 }
