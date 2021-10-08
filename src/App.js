@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import "./css/App.css";
 
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import Navbar from "./Components/UI/Navbar";
 
 import AppRouter from "./Components/UI/AppRouter";
@@ -26,10 +26,10 @@ function App() {
           setIsAuth,
           isLoading
         }}>
-          <BrowserRouter>
+          <HashRouter>
             <Navbar />
             <AppRouter />
-          </BrowserRouter>
+          </HashRouter>
         </AuthContext.Provider>
       </div>
   );
